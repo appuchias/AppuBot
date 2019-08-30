@@ -33,9 +33,14 @@ class Events(commands.Cog):
     async def on_member_join(member):
         new = discord.utils.get(member.guild.roles, name="Nuevos")
         await member.add_roles(new)
-        await member.send("Bienvenido al servidor oficial de **Pink Pills**\n\tAhora será avisado el cocreador y el gestor de Discord para la asignación de roles y demás procedimientos. Gracias por unirte a PINK PILLS :blush:")
-        channel = discord.utils.get(member.guild.channels, name="nuevos-notificación")
+        await member.send("Bienvenido!")
+        channel = discord.utils.get(member.guild.channels, name="usuarios")
         await channel.send(f"@everyone:\n{member.mention} se acaba de unir! :tada:")
+
+    @commands.Cog.listener()
+    async def on_member_remove(member):
+        channel = discord.utils.get(member.guild.channels, name="usuarios")
+        await channel.send(f"{user} se acaba de ir, parece que no lo pasaba bien D:")
 
     #Logging function
     async def log(self, ctx, msg):

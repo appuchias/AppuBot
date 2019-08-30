@@ -62,7 +62,7 @@ class Chat(commands.Cog):
                 output += ' '
 
             embed1 = discord.Embed(
-            title = '**Pink Pills Official Bot**',
+            title = "**Appu's Bot**",
             description = 'Repite "{}" {} veces'.format(output, veces),
             colour = 0xf29fc5
             )

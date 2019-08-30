@@ -31,7 +31,7 @@ class Errors(commands.Cog):
             await ctx.send(f"Esto no funciona en DM!:confused:\n*(Error: {error})*")
             await self.log(ctx, f"Error: {error}")
         elif isinstance(error, commands.CheckFailure):
-            await ctx.send(f"Error en el check del comando! Contacta a @PINK PILLS | Appu | CEO si quieres saber más!:confused:\n*(Error: {error})*")
+            await ctx.send(f"Error en el check del comando! Contacta a @Appu#2187 si quieres saber más!:confused:\n*(Error: {error})*")
             await self.log(ctx, f"Error: {error}")
         elif isinstance(error, commands.CommandNotFound):
             await ctx.send(f"El comando no existe o lo has escrito mal:confused:\n*(Error: {error})*")
@@ -40,7 +40,7 @@ class Errors(commands.Cog):
             await ctx.send(f"Comando desactivado!:confused:\n*(Error: {error})*")
             await self.log(ctx, f"Error: {error}")
         elif isinstance(error, commands.CommandInvokeError):
-            await ctx.send(f"Error interno del comando! Repórtalo cuanto antes a @PINK PILLS | Appu | CEO!:confused:\n*(Error: {error})*")
+            await ctx.send(f"Error interno del comando! Repórtalo cuanto antes a @Appu#2187!:confused:\n*(Error: {error})*")
             await self.log(ctx, f"Error: {error}")
         elif isinstance(error, commands.TooManyArguments):
             await ctx.send(f"El error lo dice todo.:confused:\n*(Error: {error})*")
