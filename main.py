@@ -59,7 +59,6 @@ async def prefix(ctx, *, pref):
 async def help(ctx):
     embed=discord.Embed(title='Help Command', description="Appu's", color=0x7289DA)
     embed.set_thumbnail(url=client.user.avatar_url)
-    embed.set_footer(text=f'(By: {ctx.author}) |/| <> - Requerido, [] - Opcional |/| Todos los comandos se añaden a log', icon_url=ctx.author.avatar_url)
 
     if ctx.author.id == 455321214525767680:
         embed.add_field(name='`~General~`', value='**Comandos generales**', inline=False)
