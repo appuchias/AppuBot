@@ -1,7 +1,4 @@
 # AppuBot
- Appuchia's Official Bot
-
-# AppuBot
 ## Este bot está única y exclusivamente diseñado para el servidor de Appu™
 ### Appuchia's Official Bot
 >El código **no está optimizado ni para una lectura comprensiva ni para una adaptación sencilla** a otro contexto en Discord.
