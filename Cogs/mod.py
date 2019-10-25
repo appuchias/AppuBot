@@ -100,23 +100,22 @@ class Mod(commands.Cog):
     #Función para poder añadir eventos al log
     async def log(self, ctx, msg):
         channel = discord.utils.get(ctx.guild.channels, name='log')
-        guild = ctx.guild
-        if channel in guild.channels:
-            await channel.send(msg)
-            print(msg)
+        if channel in ctx.guild.channels:
+            pass
         else:
-            await guild.create_text_channel(name='log', topic="El log del bot", reason='Silénciame, habrá duplicados de mensajes aquí!')
+            await guild.create_text_channel(name='log', topic="El log del bot. Silénciame si no quieres morir por notificaciones :)", reason='Log necesario...')
             channel = discord.utils.get(ctx.guild.channels, name='log')
-            await channel.set_permissions(ctx.guild.default_role, overwrite=discord.PermissionOverwrite(send_messages=False, read_messages=False))
+            overwrites = {guild.default_role: discord.PermissionOverwrite(read_messages=False, send_messages=False)}
 
             top_two = guild.roles[-2:]
             for role in top_two:
-                await channel.set_permissions(role, read_messages=True, send_messages=True)
-            await channel.send(msg)
-            print(msg)
-        f = open("modlog.txt", "a")
-        f.write(f"{msg}\n")
-        f.close()
+                overwrite[role] = discord.PermissionOverwrite(read_messages=True, send_messages=True)
+            await channel.set_permissions(ctx.guild.default_role, overwrite=overwrite)
+        await channel.send(msg)
+        print(f"Log: {msg}")
+
+        with open("modlog.txt", "a") as f:
+            f.write(f"Log: {msg}")
 
     #Warn function
     async def warning(self, ctx, user, reason):

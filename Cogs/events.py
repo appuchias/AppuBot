@@ -31,7 +31,7 @@ class Events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_join(member):
-        new = discord.utils.get(member.guild.roles, name="Nuevos")
+        new = discord.utils.get(member.guild.roles, name="Readme")
         await member.add_roles(new)
         await member.send("Bienvenido!")
         channel = discord.utils.get(member.guild.channels, name="usuarios")
@@ -42,29 +42,34 @@ class Events(commands.Cog):
         channel = discord.utils.get(member.guild.channels, name="usuarios")
         await channel.send(f"{user} se acaba de ir, parece que no lo pasaba bien D:")
 
+    @commands.command()
+    async def login(self, ctx):
+        user = ctx.author
+        readme = discord.utils.get(ctx.guild.roles, name="Readme")
+        todos = discord.utils.get(ctx.guild.roles, name="Todos")
+        await user.remove_roles(readme)
+        await user.add_roles(todos)
+        await user.send("Bienvenido al server! Pásalo bien! Para consultar las normas ve a ")
+
     #Logging function
     async def log(self, ctx, msg):
         channel = discord.utils.get(ctx.guild.channels, name='log')
-        guild = ctx.guild
-        if channel in guild.channels:
-            await channel.send(msg)
-            print(msg)
+        if channel in ctx.guild.channels:
+            pass
         else:
-            await guild.create_text_channel(name='log', topic="The bot's log", reason='Needed to work')
+            await guild.create_text_channel(name='log', topic="El log del bot. Silénciame si no quieres morir por notificaciones :)", reason='Log necesario...')
             channel = discord.utils.get(ctx.guild.channels, name='log')
-            overwrite = discord.PermissionOverwrite()
-            overwrite.send_messages=False
-            overwrite.read_messages=False
-            await channel.set_permissions(ctx.guild.default_role, overwrite=overwrite)
+            overwrites = {guild.default_role: discord.PermissionOverwrite(read_messages=False, send_messages=False)}
 
             top_two = guild.roles[-2:]
             for role in top_two:
-                await channel.set_permissions(role, read_messages=True, send_messages=True)
-            await channel.send(msg)
-            print(msg)
-        f = open("modlog.txt", "a")
-        f.write(f"{msg}\n")
-        f.close()
+                overwrite[role] = discord.PermissionOverwrite(read_messages=True, send_messages=True)
+            await channel.set_permissions(ctx.guild.default_role, overwrite=overwrite)
+        await channel.send(msg)
+        print(f"Log: {msg}")
+
+        with open("modlog.txt", "a") as f:
+            f.write(f"Log: {msg}")
 
 def setup(client):
     client.add_cog(Events(client))
