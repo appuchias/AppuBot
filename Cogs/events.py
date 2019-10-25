@@ -57,14 +57,14 @@ class Events(commands.Cog):
         if channel in ctx.guild.channels:
             pass
         else:
-            await guild.create_text_channel(name='log', topic="El log del bot. Silénciame si no quieres morir por notificaciones :)", reason='Log necesario...')
+            await ctx.guild.create_text_channel(name='log', topic="El log del bot. Silénciame si no quieres morir por notificaciones :)", reason='Log necesario...')
             channel = discord.utils.get(ctx.guild.channels, name='log')
-            overwrites = {guild.default_role: discord.PermissionOverwrite(read_messages=False, send_messages=False)}
+            overwrites = {ctx.guild.default_role: discord.PermissionOverwrite(read_messages=False, send_messages=False)}
 
-            top_two = guild.roles[-2:]
+            top_two = ctx.guild.roles[-2:]
             for role in top_two:
-                overwrite[role] = discord.PermissionOverwrite(read_messages=True, send_messages=True)
-            await channel.set_permissions(ctx.guild.default_role, overwrite=overwrite)
+                overwrites[role] = discord.PermissionOverwrite(read_messages=True, send_messages=True)
+            await channel.set_permissions(ctx.guild.default_role, overwrite=overwrites)
         await channel.send(msg)
         print(f"Log: {msg}")
 
