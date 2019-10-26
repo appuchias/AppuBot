@@ -8,7 +8,7 @@ import json
 
 prefix = "*"
 copyright = "**Appu's Official Bot**\n*By Appúchia*"
-version = "0.1.0 stable"
+version = "0.2.0 stable"
 
 client = commands.Bot(command_prefix=prefix)
 client.remove_command('help')
@@ -90,24 +90,4 @@ async def change_status():
     await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=next(activities)))
 
 client.run(os.environ.get("Token_Bot"))
-
-
-# async def log(ctx, msg):
-#     channel = discord.utils.get(ctx.guild.channels, name='log')
-#     if channel in ctx.guild.channels:
-#         pass
-#     else:
-#         await guild.create_text_channel(name='log', topic="El log del bot. Silénciame si no quieres morir por notificaciones :)", reason='Log necesario...')
-#         channel = discord.utils.get(ctx.guild.channels, name='log')
-#         overwrites = {guild.default_role: discord.PermissionOverwrite(read_messages=False, send_messages=False)}
-#
-#         top_two = guild.roles[-2:]
-#         for role in top_two:
-#             overwrite[role] = discord.PermissionOverwrite(read_messages=True, send_messages=True)
-#         await channel.set_permissions(ctx.guild.default_role, overwrite=overwrite)
-#
-#     await channel.send(msg)
-#     print(f"Log: {msg}")
-#
-#     with open("modlog.txt", "a") as f:
-#         f.write(f"Log: {msg}")
+#os.environ.get("Token_Bot")

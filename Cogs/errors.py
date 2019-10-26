@@ -89,7 +89,7 @@ class Errors(commands.Cog):
         print(f"Log: {msg}")
 
         with open("modlog.txt", "a") as f:
-            f.write(f"Log: {msg}")
+            f.write(f"Log: {msg}\n")
 
 def setup(client):
     client.add_cog(Errors(client))

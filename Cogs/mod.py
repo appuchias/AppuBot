@@ -1,4 +1,3 @@
-#Importo librerías
 import discord
 from discord.ext import commands
 import asyncio
@@ -13,19 +12,15 @@ class Mod(commands.Cog):
     #When a message is sent
     @commands.Cog.listener()
     async def on_message(self, message):
-        if message.embeds:
-            return
-        elif message.author == self.client.user:
-            return
-        elif message.author.bot:
+        if message.embeds or message.author == self.client.user or message.author.bot or message.channel.id == 637356734649729044:
             return
         else:
-            await self.log(message, f'(#{message.channel}) @{message.author}: {message.content}')
+            await self.log(message, f'(#{message.channel}) ${message.author}: {message.content.replace("@", "$")}')
         user = message.author
         bad_words = ["puta", "puto", "gilipollas", "hijo de", "cabron", "cabrón", "pvta", "pvto", "pta", "pto", "p*to", "p*ta", "asshole"]
         for word in bad_words:
             if word in message.content.lower():
-                await self.warning(user, user, "Used a bad word")
+                await self.warning(user, user, f"Used a bad word ({word})")
 
     #Commands
     #Bulk message delete
@@ -115,7 +110,7 @@ class Mod(commands.Cog):
         print(f"Log: {msg}")
 
         with open("modlog.txt", "a") as f:
-            f.write(f"Log: {msg}")
+            f.write(f"Log: {msg}\n")
 
     #Warn function
     async def warning(self, ctx, user, reason):

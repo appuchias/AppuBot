@@ -1,8 +1,6 @@
 import discord
-from discord.ext import commands, tasks
-import random
+from discord.ext import commands
 import asyncio
-import os
 
 prefix = '*'
 
@@ -55,7 +53,7 @@ class Extensions(commands.Cog):
         print(f"Log: {msg}")
 
         with open("modlog.txt", "a") as f:
-            f.write(f"Log: {msg}")
+            f.write(f"Log: {msg}\n")
 
 def setup(client):
     client.add_cog(Extensions(client))
