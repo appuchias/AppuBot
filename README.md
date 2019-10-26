@@ -7,8 +7,6 @@
 Versión simplificada:
 ![alt text](https://github.com/appuchias/AppuBot/blob/master/AppuBot_license.png)
 
-Cualquier cosa contáctame por [email](mailto:fernandez.fer.pabloff@gmail.com)
-
 ## Changelog
 ### 0.1.0:
  - Inclusión del bot en los servidores y optimización del código
@@ -16,3 +14,5 @@ Cualquier cosa contáctame por [email](mailto:fernandez.fer.pabloff@gmail.com)
 ### 0.2.0:
  - Añadido sistema para detectar los inicios de sesión en el servidor mediante el uso de la reacción a 2 mensajes en canales distintos
 (26/10/2019)
+
+Cualquier cosa contáctame por [mail](mailto:fernandez.fer.pabloff@gmail.com)
