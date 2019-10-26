@@ -2,7 +2,9 @@
 ## Este bot está única y exclusivamente diseñado para los servidores de Appu™
 >El código **no está optimizado ni para una lectura comprensiva ni para una adaptación sencilla** a otro contexto en Discord.
 
-Lee LICENSE.md para saber más sobre la licencia de uso del repositorio.
+#### Lee LICENSE.md para saber más sobre la licencia de uso del repositorio.
+Versión simplificada:
+![alt text](https://github.com/appuchias/AppuBot/blob/master/AppuBot_license.png)
 
 Cualquier cosa contáctame por [email](mailto:fernandez.fer.pabloff@gmail.com)
 
