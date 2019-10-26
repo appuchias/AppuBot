@@ -1,5 +1,6 @@
 # Appu's Bot
 ## Este bot está única y exclusivamente diseñado para los servidores de Appu™
+[![Documentation Status](https://readthedocs.org/projects/appubot/badge/?version=latest)](https://appubot.readthedocs.io/es/latest/?badge=latest)
 >El código **no está optimizado ni para una lectura comprensiva ni para una adaptación sencilla** a otro contexto en Discord.
 
 #### Lee LICENSE.md para saber más sobre la licencia de uso del repositorio.
