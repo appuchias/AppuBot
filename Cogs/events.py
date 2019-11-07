@@ -1,15 +1,31 @@
 import discord
 from discord.ext import commands
+#import datetime as dt
+#import pytz
 
 #Bot prefix
 prefix = '*'
 users = {}
+
+#madrid_tz = pytz.timezone("Europe/London")
 
 class Events(commands.Cog):
     def __init__(self, client):
         self.client = client
 
     #Events
+    @commands.Cog.listener(name="on_message")
+    async def on_msg(self, message):
+        if message.embeds or message.author == self.client.user or message.author.bot or message.channel.id == 637356734649729044:
+            return
+        else:
+            await self.log(message, f'(#{message.channel}) ${message.author}: {message.content.replace("@", "$")}')
+            if message.channel.id == 637356732137603092:
+                await message.remove()
+                #time = dt.datetime.now(madrid_tz)
+                #embed = discord.Embed(title="Mensaje de soporte", description=f"Enviada por {message.author} el {time.strftime("%\d / %\m / %\Y")} a las {time.strftime("%\X")}")
+
+
     #When a reaction is added to a message
     @commands.Cog.listener()
     async def on_reaction_add(self, reaction, user):
@@ -43,10 +59,10 @@ class Events(commands.Cog):
     @commands.Cog.listener()
     async def on_raw_reaction_remove(self, payload):
         channel = self.client.get_channel(payload.channel_id)
-
         if payload.emoji.name == "✅":
             if channel.id == 637356730652819484 or channel.id == 637356731307130900:
-                users[payload.user_id] -=1
+                if payload.user_id in users:
+                    users[payload.user_id] -=1
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
@@ -63,6 +79,8 @@ class Events(commands.Cog):
         channel = discord.utils.get(member.guild.channels, name="usuarios")
         await channel.send(f"{user} se acaba de ir, parece que no lo pasaba bien D:")
         await self.log(f"{user} se acaba de ir, parece que no lo pasaba bien D:")
+
+
 
     #Logging function
     async def log(self, ctx, msg):

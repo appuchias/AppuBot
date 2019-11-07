@@ -12,19 +12,18 @@ class Mod(commands.Cog):
     #When a message is sent
     @commands.Cog.listener()
     async def on_message(self, message):
-        if message.embeds or message.author == self.client.user or message.author.bot or message.channel.id == 637356734649729044:
-            return
-        else:
-            await self.log(message, f'(#{message.channel}) ${message.author}: {message.content.replace("@", "$")}')
+        await self.log(message, f'(#{message.channel}) ${message.author}: {message.content.replace("@", "$")}')
         user = message.author
         bad_words = ["puta", "puto", "gilipollas", "hijo de", "cabron", "cabrón", "pvta", "pvto", "pta", "pto", "p*to", "p*ta", "asshole"]
         for word in bad_words:
             if word in message.content.lower():
                 await self.warning(user, user, f"Used a bad word ({word})")
+                await self.log(user, f"{user} used a bad word ({word})")
 
     #Commands
     #Bulk message delete
     @commands.command()
+    @commands.has_role("Mods")
     async def clear(self, ctx, number):
         n = number
         if int(n) > 20:
@@ -38,6 +37,7 @@ class Mod(commands.Cog):
 
     #Kick someone
     @commands.command()
+    @commands.has_role("Mods")
     async def kick(self, ctx, member : discord.Member, *, reason=None):
         await member.kick(reason=reason)
         await ctx.send(f'{member} kickeado!')
@@ -46,6 +46,7 @@ class Mod(commands.Cog):
 
     #Ban someone
     @commands.command()
+    @commands.has_role("Mods")
     async def ban(self, ctx, member : discord.Member, *, reason=None):
         await member.ban(reason=reason)
         await ctx.send(f'{member} baneado!')
@@ -54,6 +55,7 @@ class Mod(commands.Cog):
 
     #Unban someone
     @commands.command()
+    @commands.has_role("Mods")
     async def unban(self, ctx, *, member):
         banned_users = ctx.guild.bans()
         name, discr = member.split('#')
@@ -68,7 +70,7 @@ class Mod(commands.Cog):
         await ctx.message.delete(delay=2)
 
     @commands.command()
-    @commands.has_role("STAFF ™")
+    @commands.has_role("Mods")
     async def warn(self, ctx, user:discord.Member, *, reason = "None"):
         await self.warning(ctx, user, reason)
         await self.log(ctx, f"{ctx.author} warned {user.name}!")
@@ -77,20 +79,38 @@ class Mod(commands.Cog):
 
 
     @commands.command()
-    @commands.has_role("STAFF ™")
+    @commands.has_role("Mods")
     async def mute(self, ctx, user: discord.Member):
         muted_role = discord.utils.get(ctx.guild.roles, name="Muted role")
         await user.add_roles(muted_role)
         await self.log(ctx, f"{user.name} got muted!")
 
     @commands.command()
-    @commands.has_role("STAFF ™")
+    @commands.has_role("Mods")
     async def tmute(self, ctx, user: discord.Member, n:int):
         muted_role = discord.utils.get(ctx.guild.roles, name="Muted role")
         await user.add_roles(muted_role)
         await self.log(ctx, f"{user.name} got muted for {n}m!")
         await asyncio.sleep(n*60)
         await user.remove_roles(muted_role)
+
+    @commands.command()
+    @commands.has_role("Mods")
+    async def report(self, ctx, who : discord.Member, *, reason):
+        with open("reports.json", "r") as f:
+        	reports = json.load(f)
+        channel = discord.utils.get(ctx.guild.channels, name="reports")
+        appu = discord.utils.get(ctx.guild.members, id=455321214525767680)
+        if who.id in reports:
+            reports[who.id] += 1
+        else:
+            reports[who.id] = 1
+        await appu.send(f"{ctx.auhor.mention} reported {who.mention} for {reason} and now has {reports.get(who.id)} reports!")
+        if reports.get(who.id) >= 3:
+        	await appu.send(f"{appu.mention}, {who.name} has {reports.get(who.id)} reports!!!")
+        await reports.send(f"Case **{len(reports)**:\n - Member: **{who}**\n - Actual reports: **{reports.get(who.id)}**\n - Reason: *{reason}*}")
+        with open ("reports.json", "w") as f:
+            json.dump(reports, f, indent=4)
 
     #Función para poder añadir eventos al log
     async def log(self, ctx, msg):
@@ -169,7 +189,7 @@ class Mod(commands.Cog):
                     except:
                         pass
                 await user.add_roles(muted_role)
-                await user.send(f"You got muted in **{ctx.guild.name}**for 12h for warning accumulation")
+                await user.send(f"Has sido muteado en **{ctx.guild.name}** durante 12h por acumulación de avisos")
             await asyncio.sleep(43200)
             await user.remove_roles(muted_role)
         elif warns[str(user.id)] == 10:
