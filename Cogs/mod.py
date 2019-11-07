@@ -108,7 +108,8 @@ class Mod(commands.Cog):
         await appu.send(f"{ctx.auhor.mention} reported {who.mention} for {reason} and now has {reports.get(who.id)} reports!")
         if reports.get(who.id) >= 3:
         	await appu.send(f"{appu.mention}, {who.name} has {reports.get(who.id)} reports!!!")
-        await reports.send(f"Case **{len(reports)**:\n - Member: **{who}**\n - Actual reports: **{reports.get(who.id)}**\n - Reason: *{reason}*}")
+        await channel.send(f"""||-------------------------------------------------------------------------------------------||
+Case **{len(reports)}**:\n - Member: **{who}**\n - Actual reports: **{reports.get(who.id)}**\n - Reason: *{reason}*""")
         with open ("reports.json", "w") as f:
             json.dump(reports, f, indent=4)
 
