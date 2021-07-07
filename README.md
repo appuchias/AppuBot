@@ -15,4 +15,3 @@ Versión simplificada:
  - Añadido sistema para detectar los inicios de sesión en el servidor mediante el uso de la reacción a 2 mensajes en canales distintos
 (26/10/2019)
 
-Cualquier cosa contáctame por [mail](mailto:fernandez.fer.pabloff@gmail.com)
